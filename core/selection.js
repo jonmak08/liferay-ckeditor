@@ -261,8 +261,8 @@
 					// when editor has no focus, remember this scroll
 					// position and revert it before context menu opens. (#5778)
 					if ( evt.data.$.button == 2 ) {
-						var sel = editor.document.$.selection;
-						if ( sel.type == 'None' )
+						var sel = editor.document.getSelection();
+						if ( !sel || sel.getType() == CKEDITOR.SELECTION_NONE )
 							scroll = editor.window.getScrollPosition();
 					}
 				});
@@ -343,7 +343,8 @@
 					}
 
 					// It's much simpler for IE8+, we just need to reselect the reported range.
-					if ( CKEDITOR.env.version > 7 ) {
+					// This hack does not work on IE>=11 because there's no old selection&range APIs.
+					if ( CKEDITOR.env.version > 7 && CKEDITOR.env.version < 11 ) {
 						html.on( 'mousedown', function( evt ) {
 							if ( evt.data.getTarget().is( 'html' ) ) {
 								// Limit the text selection mouse move inside of editable. (#9715)
@@ -410,7 +411,7 @@
 
 			if ( CKEDITOR.env.webkit ) {
 				// Before keystroke is handled by editor, check to remove the filling char.
-				doc.on( 'keydown', function( evt ) {
+				editable.attachListener( doc, 'keydown', function( evt ) {
 					var key = evt.data.getKey();
 					// Remove the filling char before some keys get
 					// executed, so they'll not get blocked by it.
@@ -425,7 +426,7 @@
 						case 8: // BACKSPACE
 						case 45: // INS
 						case 46: // DEl
-							removeFillingChar( editor.editable() );
+							removeFillingChar( editable );
 					}
 
 				}, null, null, -1 );

@@ -465,6 +465,8 @@
 										if ( loader )
 											loader.setStyle( 'display', '' );
 
+										dialog.dontResetSize = true;
+
 										original.on( 'load', onImgLoadEvent, dialog );
 										original.on( 'error', onImgLoadErrorEvent, dialog );
 										original.on( 'abort', onImgLoadErrorEvent, dialog );
@@ -1045,7 +1047,7 @@
 							{
 							id: 'cmbLangDir',
 							type: 'select',
-							style: 'width : 100px;',
+							style: 'width : auto',
 							label: editor.lang.common.langDir,
 							'default': '',
 							items: [

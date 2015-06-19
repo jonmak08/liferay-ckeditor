@@ -130,9 +130,8 @@
 					};
 
 					node = walker.next();
-					if ( node && node.type == CKEDITOR.NODE_ELEMENT && node.is( 'ul', 'ol' ) ) {
-						( CKEDITOR.env.ie ? doc.createText( '\xa0' ) : doc.createElement( 'br' ) ).insertBefore( node );
-					}
+					if ( node && node.type == CKEDITOR.NODE_ELEMENT && node.is( 'ul', 'ol' ) )
+						( CKEDITOR.env.needsBrFiller ? doc.createElement( 'br' ) : doc.createText( '\xa0' ) ).insertBefore( node );
 				}
 
 				// Move the selection to the end block.
@@ -185,8 +184,7 @@
 					}
 				}
 
-				if ( !CKEDITOR.env.ie )
-					newBlock.appendBogus();
+				newBlock.appendBogus();
 
 				if ( !newBlock.getParent() )
 					range.insertNode( newBlock );
@@ -274,8 +272,8 @@
 				range.deleteContents();
 				range.insertNode( lineBreak );
 
-				// IE has different behavior regarding position.
-				if ( CKEDITOR.env.ie )
+				// Old IEs have different behavior regarding position.
+				if ( !CKEDITOR.env.needsBrFiller )
 					range.setStartAt( lineBreak, CKEDITOR.POSITION_AFTER_END );
 				else {
 					// A text node is required by Gecko only to make the cursor blink.
@@ -284,8 +282,11 @@
 					doc.createText( '\ufeff' ).insertAfter( lineBreak );
 
 					// If we are at the end of a block, we must be sure the bogus node is available in that block.
-					if ( isEndOfBlock )
-						lineBreak.getParent().appendBogus();
+					if ( isEndOfBlock ) {
+						// In most situations we've got an elementPath.block (e.g. <p>), but in a
+						// blockless editor or when autoP is false that needs to be a block limit.
+						( startBlock || elementPath.blockLimit ).appendBogus();
+					}
 
 					// Now we can remove the text node contents, so the caret doesn't
 					// stop on it.

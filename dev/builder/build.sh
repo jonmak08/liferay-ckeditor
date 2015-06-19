@@ -54,7 +54,31 @@ cd ../..
 echo ""
 echo "Starting CKBuilder..."
 
-java -jar ckbuilder/$CKBUILDER_VERSION/ckbuilder.jar --build ../../ release --version="4.0 DEV" --build-config build-config.js --overwrite "$@"
+# Determine release mode
+if [ "$1" == "dev" ]; then
+	echo ""
+	echo "Building CKEditor in development mode..."
+	echo ""
+
+	DEV_OPS="--leave-css-unminified --leave-js-unminified"
+
+	MODE="_dev"
+else
+	echo ""
+	echo "Building CKEditor in production mode..."
+	echo ""
+fi
+
+CKEDITOR_VERSION="4.0.3"
+CKEDITOR_REVISION="16"
+
+java -jar ckbuilder/$CKBUILDER_VERSION/ckbuilder.jar --build ../../ release --version $CKEDITOR_VERSION --revision $CKEDITOR_REVISION --build-config build-config.js --overwrite --no-tar --no-zip $DEV_OPS
+
+echo ""
+echo "Zipping and stamping with SHA..."
+echo ""
+
+ant zip -Drelease.file.name="ckeditor_"$CKEDITOR_VERSION"_liferay"$MODE".zip" -Drelease.mode=$MODE
 
 echo ""
 echo "Release created in the \"release\" directory."

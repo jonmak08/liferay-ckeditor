@@ -1,5 +1,60 @@
 CKEditor 4 Changelog
 ====================
+## CKEditor 4.0.3-r16
+* [LPS-56209](https://issues.liferay.com/browse/LPS-56209): Backport of: [#11947](http://dev.ckeditor.com/ticket/11947): [FF+IE11] Fixed: Shift+Enter in lists produces two line breaks.
+
+## CKEditor 4.0.3-r15
+
+* [LPS-39430](https://issues.liferay.com/browse/LPS-39430): Provide config option to prevent indents on non-list content.
+* [LPS-55723](https://issues.liferay.com/browse/LPS-55723): Improve solution for LPS-55018.
+
+## CKEditor 4.0.3-r14
+
+* [LPS-55288](https://issues.liferay.com/browse/LPS-55288): Prevent `toPre()` from converting `<br>` to new-line characters in all but IE<8. Adapted from, [#4711](https://dev.ckeditor.com/ticket/4711), [#9535](https://dev.ckeditor.com/ticket/9535)
+
+## CKEditor 4.0.3-r13
+
+* [#LPS-55018](https://issues.liferay.com/browse/LPS-55018): Reverting part of [#3893](http://dev.ckeditor.com/ticket/3893) to prevent list indents beyond a single nested level per level.
+
+## CKEditor 4.0.3-r12
+
+* [#LPS-52359](https://issues.liferay.com/browse/LPS-52359): Backport of, [89ea0640ece7839a96d1df1469acabf7270faee2](https://github.com/liferay/ckeditor-ee/commit/89ea0640ece7839a96d1df1469acabf7270faee2), part of [#9764](http://dev.ckeditor.com/ticket/9764).
+
+## CKEditor 4.0.3-r11
+
+* [#10907](http://dev.ckeditor.com/ticket/10907): [IE11] Selection needs <br> filler in empty blocks
+
+## CKEditor 4.0.3-r10
+
+* [#10906](http://dev.ckeditor.com/ticket/10906): [IE11+] Editable is not being focused when clicking outside body
+
+## CKEditor 4.0.3-r9
+
+**Security Updates:**
+
+* Fixed XSS vulnerability in the Preview plugin reported by Mario Heiderich of [Cure53](https://cure53.de/).
+
+**An upgrade is highly recommended!**
+
+## CKEditor 4.0.3-r8
+
+* [#LPS-47564](https://issues.liferay.com/browse/LPS-47564): Adding back support for Internet Explorer 7 detection.
+
+## CKEditor 4.0.3-r7
+
+* [#10612](http://dev.ckeditor.com/ticket/10612): Internet Explorer 11 compatibility issues.
+
+## CKEditor 4.0.3-r6
+
+* [#10612](http://dev.ckeditor.com/ticket/11839): [IE9] Text cursor jumps out of source area on resize.
+
+## CKEditor 4.0.3-r5
+
+* [#10330](http://dev.ckeditor.com/ticket/10330): [Webkit] Filling char is not removed on key down in specific cases.
+
+## CKEditor 4.0.3-r3
+
+* [#10945](http://dev.ckeditor.com/ticket/10945): Click with mouse inside editor does not show the caret, but user is able to enter text.
 
 ## CKEditor 4.0.3
 
