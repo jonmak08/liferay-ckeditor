@@ -1,6 +1,6 @@
-﻿/**
- * @license Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.html or http://ckeditor.com/license
+/**
+ * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 /**
@@ -18,16 +18,9 @@
  * @namespace
  */
 CKEDITOR.lang[ 'nb' ] = {
-	/**
-	 * The language reading direction. Possible values are "rtl" for
-	 * Right-To-Left languages (like Arabic) and "ltr" for Left-To-Right
-	 * languages (like English).
-	 * @default 'ltr'
-	 */
-	dir: 'ltr',
-
 	// ARIA description.
 	editor: 'Rikteksteditor',
+	editorPanel: 'Panel for rikteksteditor',
 
 	// Common messages and labels.
 	common: {
@@ -35,7 +28,7 @@ CKEDITOR.lang[ 'nb' ] = {
 		// of reading non-English words. So be careful while translating it.
 		editorHelp: 'Trykk ALT 0 for hjelp',
 
-		browseServer: 'Bla igjennom server',
+		browseServer: 'Bla gjennom tjener',
 		url: 'URL',
 		protocol: 'Protokoll',
 		upload: 'Last opp',
@@ -70,8 +63,8 @@ CKEDITOR.lang[ 'nb' ] = {
 		generalTab: 'Generelt',
 		advancedTab: 'Avansert',
 		validateNumberFailed: 'Denne verdien er ikke et tall.',
-		confirmNewPage: 'Alle ulagrede endringer som er gjort i dette innholdet vil bli tapt. Er du sikker på at du vil laste en ny side?',
-		confirmCancel: 'Noen av valgene har blitt endret. Er du sikker på at du vil lukke dialogen?',
+		confirmNewPage: 'Alle ulagrede endringer som er gjort i dette innholdet vil gå tapt. Er du sikker på at du vil laste en ny side?',
+		confirmCancel: 'Du har endret noen alternativer. Er du sikker på at du vil lukke dialogvinduet?',
 		options: 'Valg',
 		target: 'Mål',
 		targetNew: 'Nytt vindu (_blank)',
@@ -88,10 +81,12 @@ CKEDITOR.lang[ 'nb' ] = {
 		alignLeft: 'Venstre',
 		alignRight: 'Høyre',
 		alignCenter: 'Midtjuster',
+		alignJustify: 'Blokkjuster',
 		alignTop: 'Topp',
 		alignMiddle: 'Midten',
 		alignBottom: 'Bunn',
-		invalidValue	: 'Ugyldig verdi.',
+		alignNone: 'Ingen',
+		invalidValue: 'Ugyldig verdi.',
 		invalidHeight: 'Høyde må være et tall.',
 		invalidWidth: 'Bredde må være et tall.',
 		invalidCssLength: 'Den angitte verdien for feltet "%1" må være et positivt tall med eller uten en gyldig CSS-målingsenhet (px, %, in, cm, mm, em, ex, pt, eller pc).',
@@ -100,6 +95,23 @@ CKEDITOR.lang[ 'nb' ] = {
 		cssLengthTooltip: 'Skriv inn et tall for en piksel-verdi eller et tall med en gyldig CSS-enhet (px, %, in, cm, mm, em, ex, pt, eller pc).',
 
 		// Put the voice-only part of the label in the span.
-		unavailable: '%1<span class="cke_accessibility">, utilgjenglig</span>'
+		unavailable: '%1<span class="cke_accessibility">, utilgjenglig</span>',
+
+		// Keyboard keys translations used for creating shortcuts descriptions in tooltips, context menus and ARIA labels.
+		keyboard: {
+			8: 'Backspace', // MISSING
+			13: 'Enter', // MISSING
+			16: 'Shift', // MISSING
+			17: 'Ctrl', // MISSING
+			18: 'Alt', // MISSING
+			32: 'Space', // MISSING
+			35: 'End', // MISSING
+			36: 'Home', // MISSING
+			46: 'Delete', // MISSING
+			224: 'Command' // MISSING
+		},
+
+		// Prepended to ARIA labels with shortcuts.
+		keyboardShortcut: 'Keyboard shortcut' // MISSING
 	}
 };

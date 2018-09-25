@@ -1,6 +1,6 @@
-﻿/*
-Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.html or http://ckeditor.com/license
+/*
+Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'docprops', 'nb', {
 	bgColor: 'Bakgrunnsfarge',
@@ -10,7 +10,7 @@ CKEDITOR.plugins.setLang( 'docprops', 'nb', {
 	charsetASCII: 'ASCII',
 	charsetCE: 'Sentraleuropeisk',
 	charsetCR: 'Kyrillisk',
-	charsetCT: 'Tradisonell kinesisk(Big5)',
+	charsetCT: 'Tradisonell kinesisk (Big5)',
 	charsetGR: 'Gresk',
 	charsetJP: 'Japansk',
 	charsetKR: 'Koreansk',
@@ -39,4 +39,4 @@ CKEDITOR.plugins.setLang( 'docprops', 'nb', {
 	title: 'Dokumentegenskaper',
 	txtColor: 'Tekstfarge',
 	xhtmlDec: 'Inkluder XHTML-deklarasjon'
-});
+} );

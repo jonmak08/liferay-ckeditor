@@ -1,9 +1,9 @@
 /**
  * @license Copyright (c) 2003-2012, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.html or http://ckeditor.com/license
+ * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
-(function() {
+( function() {
 
 	'use strict';
 
@@ -21,20 +21,28 @@
 		'</div>' );
 
 	CKEDITOR.plugins.add( 'sharedspace', {
-		afterInit: function( editor ) {
-			var spaces = editor.config.sharedSpaces;
+		init: function( editor ) {
+			// Create toolbars on #loaded (like themed creator), but do that
+			// with higher priority to block the default scenario.
+			editor.on( 'loaded', function() {
+				var spaces = editor.config.sharedSpaces;
 
-			if ( spaces ) {
-				for ( var spaceName in spaces ) {
-					create( editor, spaceName, spaces[ spaceName ] );
+				if ( spaces ) {
+					for ( var spaceName in spaces )
+						create( editor, spaceName, spaces[ spaceName ] );
 				}
-			}
+			}, null, null, 9 );
 		}
-	});
+	} );
 
-	function create( editor, spaceName, targetId ) {
-		var target = CKEDITOR.document.getById( targetId ),
-			innerHtml, space;
+	function create( editor, spaceName, target ) {
+		var innerHtml, space;
+
+		if ( typeof target == 'string' ) {
+			target = CKEDITOR.document.getById( target );
+		} else {
+			target = new CKEDITOR.dom.element( target );
+		}
 
 		if ( target ) {
 			// Have other plugins filling the space.
@@ -48,7 +56,7 @@
 				}, null, null, 1 );  // Hi-priority
 
 				// Inject the space into the target.
-				space = target.append( CKEDITOR.dom.element.createFromHtml( containerTpl.output({
+				space = target.append( CKEDITOR.dom.element.createFromHtml( containerTpl.output( {
 					id: editor.id,
 					name: editor.name,
 					langDir: editor.lang.dir,
@@ -56,7 +64,7 @@
 					space: spaceName,
 					spaceId: editor.ui.spaceId( spaceName ),
 					content: innerHtml
-				})));
+				} ) ) );
 
 				// Only the first container starts visible. Others get hidden.
 				if ( target.getCustomData( 'cke_hasshared' ) )
@@ -72,7 +80,7 @@
 					evt = evt.data;
 					if ( !evt.getTarget().hasAscendant( 'a', 1 ) )
 						evt.preventDefault();
-				});
+				} );
 
 				// Register this UI space to the focus manager.
 				editor.focusManager.add( space, 1 );
@@ -88,36 +96,52 @@
 					}
 
 					space.show();
-				});
+				} );
 
 				editor.on( 'destroy', function() {
 					space.remove();
-				});
+				} );
 			}
 		}
 	}
-})();
+} )();
 
 /**
  * Makes it possible to place some of the editor UI blocks, like the toolbar
- * and the elements path, into any element in the page.
+ * and the elements path, in any element on the page.
  *
- * The elements used to hold the UI blocks can be shared among several editor
- * instances. In that case, only the blocks of the active editor instance will
- * display.
+ * The elements used to store the UI blocks can be shared among several editor
+ * instances. In that case only the blocks relevant to the active editor instance
+ * will be displayed.
  *
- *		// Place the toolbar inside the element with ID "someElementId" and the
- *		// elements path into the element with ID "anotherId".
+ * Read more in the [documentation](#!/guide/dev_sharedspace)
+ * and see the [SDK sample](http://sdk.ckeditor.com/samples/sharedspace.html).
+ *
+ *		// Place the toolbar inside the element with an ID of "someElementId" and the
+ *		// elements path into the element with an  ID of "anotherId".
  *		config.sharedSpaces = {
  *			top: 'someElementId',
  *			bottom: 'anotherId'
  *		};
  *
- *		// Place the toolbar inside the element with ID "someElementId". The
+ *		// Place the toolbar inside the element with an ID of "someElementId". The
  *		// elements path will remain attached to the editor UI.
  *		config.sharedSpaces = {
  *			top: 'someElementId'
  *		};
+ *
+ *		// (Since 4.5)
+ *		// Place the toolbar inside a DOM element passed by a reference. The
+ *		// elements path will remain attached to the editor UI.
+ *		var htmlElement = document.getElementById( 'someElementId' );
+ *		config.sharedSpaces = {
+ *			top: htmlElement
+ *		};
+ *
+ * **Note:** The [Maximize](http://ckeditor.com/addon/maximize) and [Editor Resize](http://ckeditor.com/addon/resize)
+ * features are not supported in the shared space environment and should be disabled in this context.
+ *
+ *		config.removePlugins = 'maximize,resize';
  *
  * @cfg {Object} [sharedSpaces]
  * @member CKEDITOR.config
